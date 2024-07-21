@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صيدليتي الرقمية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #000;
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+            overflow-x: hidden;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            padding: 20px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .section:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 6px 8px rgba(255,255,255,0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #FFD700;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 0 0 10px rgba(255,215,0,0.5);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+        }
+        .modal-content {
+            background-color: #111;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #444;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        .close {
+            color: #aaa;
+            float: left;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal h2 {
+            margin-top: 0;
+            color: #fff;
+        }
+        .modal ul {
+            padding-right: 20px;
+        }
+        .modal li {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #FFD700;
+        }
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <h1><i class="fas fa-clinic-medical"></i> صيدليتي الرقمية</h1>
+    <div class="container">
+        <div class="section" onclick="openModal('التهابات وآلام الحلق')">
+            <i class="fas fa-head-side-cough icon"></i>
+            <h2>أدوية لعلاج التهابات وآلام الحلق</h2>
+        </div>
+        <div class="section" onclick="openModal('مشاكل الأسنان')">
+            <i class="fas fa-tooth icon"></i>
+            <h2>أدوية لعلاج مشاكل الأسنان</h2>
+        </div>
+        <div class="section" onclick="openModal('مشاكل الجهاز الهضمي')">
+            <i class="fas fa-pills icon"></i>
+            <h2>أدوية لعلاج مشاكل الجهاز الهضمي</h2>
+        </div>
+        <div class="section" onclick="openModal('نزلات البرد والإنفلونزا')">
+            <i class="fas fa-virus icon"></i>
+            <h2>أدوية لعلاج نزلات البرد والإنفلونزا</h2>
+        </div>
+        <div class="section" onclick="openModal('مسكنات الألم')">
+            <i class="fas fa-pills icon"></i>
+            <h2>أدوية مسكنة للألم ومضادة للالتهابات</h2>
+        </div>
+        <div class="section" onclick="openModal('مضادات الحساسية')">
+            <i class="fas fa-allergies icon"></i>
+            <h2>أدوية مضادة للحساسية</h2>
+        </div>
+        <div class="section" onclick="openModal('مكملات غذائية')">
+            <i class="fas fa-capsules icon"></i>
+            <h2>مكملات غذائية</h2>
+        </div>
+        <div class="section" onclick="openModal('العناية بالجروح')">
+            <i class="fas fa-band-aid icon"></i>
+            <h2>منتجات للعناية بالجروح والحروق</h2>
+        </div>
+        <div class="section" onclick="openModal('العناية بالجلد')">
+            <i class="fas fa-pump-medical icon"></i>
+            <h2>منتجات للعناية بالجلد</h2>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Designed by Al.Yazeedi</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particle.js configuration
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: false },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 6, direction: "none", random: false, straight: false, out_mode: "out", bounce: false }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
+                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+
+        const modal = document.getElementById("myModal");
+        const span = document.getElementsByClassName("close")[0];
+        const modalTitle = document.getElementById("modalTitle");
+        const modalContent = document.getElementById("modalContent");
+
+        const medicineData = {
+            'التهابات وآلام الحلق': [
+                'Strepsils (Honey & Lemon): أقراص مص تخفف آلام الحلق وتحتوي على مطهرات خفيفة.',
+                'Throatsil: أقراص مص لتخفيف التهاب الحلق والسعال.',
+                'Betadine Throat Spray: بخاخ مطهر للحلق يساعد في علاج التهابات الحلق الخفيفة.',
+                'Boiron ThroatCalm Tablets: علاج هوميوباثي لتخفيف آلام الحلق.'
+            ],
+            'مشاكل الأسنان': [
+                'Orajel PM Toothache Gel: جل موضعي لتخفيف آلام الأسنان ليلاً.',
+                'Clove Oil: زيت طبيعي يستخدم لتخفيف آلام الأسنان مؤقتاً.',
+                'Natural Clove Oil Essence: مستخلص طبيعي لتسكين آلام الأسنان.'
+            ],
+            'مشاكل الجهاز الهضمي': [
+                'Tums Antacid: أقراص مضادة للحموضة تخفف حرقة المعدة وعسر الهضم.'
+            ],
+            'نزلات البرد والإنفلونزا': [
+                'Robitussin Cold + Flu: يخفف أعراض البرد والإنفلونزا مثل السعال والاحتقان.',
+                'Vicks VapoRub: مرهم موضعي يساعد في تخفيف احتقان الصدر والأنف.',
+                'Axe Brand Universal Oil: زيت عطري يستخدم لتخفيف أعراض البرد والصداع.'
+            ],
+            'مسكنات الألم': [
+                'Rofenac S.R. (Diclofenac Sodium): مضاد التهاب غير ستيرويدي، يخفف الألم والالتهاب في حالات التهاب المفاصل والإصابات.',
+                'Amol Paracetamol: مسكن للألم وخافض للحرارة، يستخدم لعلاج الصداع والآلام الخفيفة والحمى.',
+                'Boiron Arnicare Arthritis Tablets: علاج طبيعي يساعد في تخفيف آلام المفاصل والتورم المرتبط بالتهاب المفاصل.'
+            ],
+            'مضادات الحساسية': [
+                'Aerius (Desloratadine): مضاد هيستامين يخفف أعراض الحساسية مثل العطس والحكة وسيلان الأنف.',
+                'Allerfin: مضاد للهيستامين يعالج أعراض الحساسية المختلفة.',
+                'Ebeast 120: مضاد للحساسية يساعد في تخفيف الأعراض المزعجة للحساسية.',
+                'Emerald Allergy Health: مكمل طبيعي يدعم الجهاز المناعي ويساعد في مكافحة الحساسية.',
+                'Allercetin Allergy & Sinus: يخفف أعراض الحساسية والتهاب الجيوب الأنفية.'
+            ],
+            'مكملات غذائية': [
+                'Source Naturals L-Theanine: مكمل غذائي يساعد في تعزيز الاسترخاء والتركيز.'
+            ],
+            'العناية بالجروح': [
+                'Mebo: كريم لعلاج الحروق والجروح، يساعد في تسريع الشفاء.',
+                'Savon Antiseptic Burn Relief: بخاخ مطهر لتخفيف آلام الحروق الخفيفة.',
+                'Savon Antiseptic First Aid Spray: بخاخ مطهر للإسعافات الأولية للجروح الصغيرة.',
+                'Boiron Calendula Cream: كريم طبيعي يساعد في شفاء الجروح والحروق الطفيفة.'
+            ],
+            'العناية بالجلد': [
+                'Cortizone-10 Ointment: مرهم يحتوي على الهيدروكورتيزون لعلاج التهابات الجلد والحكة.',
+                'B-Tex White Ointment: مرهم لعلاج مشاكل الجلد مثل الإكزيما والقوباء الحلقية.'
+            ]
+        };
+
+        function openModal(section) {
+            modalTitle.textContent = `أدوية ${section}`;
+            const medicines = medicineData[section];
+            modalContent.innerHTML = `<ul>${medicines.map(med => `<li>${med}</li>`).join('')}</ul>`;
+            modal.style.display = "block";
+        }
+
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
